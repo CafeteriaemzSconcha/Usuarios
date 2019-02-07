@@ -31,13 +31,13 @@
                     <button id="bmesa15" class="btn btn-outline-dark btn-social text-center rounded-square i" data-toggle="modal" data-target="#mesa15" disabled="disabled">Mesa 15</button>
                 </div>
                 @php
-                        foreach ($lista as $listas){
+                    foreach ($lista as $listas){
                             
-                            echo "<script>";
-                            echo "document.getElementById('$listas').disabled=false;";
-                            echo "</script>";                
-                        }
-                    @endphp 
+                        echo "<script>";
+                        echo "document.getElementById('bmesa$listas').disabled=false;";
+                        echo "</script>";                
+                    }
+                @endphp 
             </div>
         </div>
     </div>
@@ -48,6 +48,7 @@
 		<a href="#close" title="Close" class="close">X</a>
         <h2>Añadir mesa</h2>
         {{ Form::open(array('url' => '','method' => 'POST', 'onSubmit' => 'return hab_mesaG()')) }}
+            <h5>Seleccione mesa.</h5>
             {{ Form::select('num', array(
                 '0' => 'Seleccione mesa',
                 '1' => 1,
@@ -65,251 +66,46 @@
                 '13' => 13,
                 '14' => 14,
                 '15' => 15,
-            ),null,['id'=>'num']) }} 
-            {{ Form::submit('Habilitar mesa') }}
+            ),null,['id'=>'num']) }}
+            <h5>Seleccione sandwich.</h5>
+            {{ Form::select('sandwich', $lista_platos ,null,['id'=>'sandwich']) }}
+            
+            {{ Form::submit('Habilitar mesa', array('class' => 'btn btn-primary')) }}
         {{ Form::close() }}
         <h3 id='ocupado'></h3>
         
 	</div>
 </div>
 
-<div class="modal fade" id="mesa1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 1</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 2</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 3</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 4</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 5</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 6</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 7</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 8</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 9</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 10</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa11" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 11</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa12" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 12</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa13" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 13</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa14" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 14</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="mesa15" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">Mesa 15</h4>
-			</div>
-			<div class="modal-body">
-				Las weas que consume
-			</div>
-		</div>
-	</div>
-</div>
+@php
+	foreach ($lista as $nummesa){
+		echo "<div class='modal fade' id='mesa$nummesa' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>\n";
+		echo "<div class='modal-dialog' role='document'>\n";
+		echo "<div class='modal-content'>\n";
+		echo "<div class='modal-header'>\n";
+		echo "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>\n";
+		echo "<span aria-hidden='true'>&times;</span>\n";
+		echo "</button>\n";
+		echo "<h4 class='modal-title' id='myModalLabel'>Mesa $nummesa </h4>\n";
+		echo "</div>\n";
+		echo "<div class='modal-body'>\n";
+		$j=0;
+		$i=0;		
+		foreach($num_mesa as $num){
+			foreach($num_mesa[$j] as $numsito){
+				if ($num_mesa[$j][$i] == $nummesa) {
+					echo $comida_mesas[$j][$i]." ";
+					echo " $".$precio_mesas[$j][$i];				
+				}
+				$i++;
+			}
+			$j++;
+			$i=0;
+		}	
+		echo "</div>\n";
+		echo "</div>\n";
+		echo "</div>\n";
+		echo "</div>\n";
+	}
+@endphp
 @endsection

@@ -7,7 +7,6 @@ function hab_mesaG() {
         document.getElementById(mesa).disabled=false;
         return true;
     }else{
-        console.log(mesa+"LALA");
         document.getElementById('ocupado').innerHTML='Mesa ocupada';
         return false;
     }

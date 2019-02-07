@@ -18,16 +18,52 @@ class HomeController extends Controller
     {
         $test = DB::table('users')->select('cargo.nombre_cargo')->join('cargo','cargo.id_users','=','users.id')->where('users.id',$auth->user()->id)->get();
         if(strpos($test, 'Garzon') !== false){
-            $mesas = DB::table('mesa')->select("mesa.numero_mesa")->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where("estado_mesa.estado","Abierto")->orwhere("estado_mesa.estado","Atendido")->get();
+            $mesas = DB::table('mesa')->select("mesa.numero_mesa",'mesa.id')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where("estado_mesa.estado","Abierto")->orwhere("estado_mesa.estado","Atendido")->get();
             $i=0;
             $lista=array();
+            $mesasid=array();
             foreach ($mesas as $mesa) {
-                $lista[$i]="bmesa".$mesa->numero_mesa;
+                $lista[$i]=$mesa->numero_mesa;
+                $mesasid[$i]=$mesa->id;
+                $i++;
+            }
+
+            $plato = DB::table('plato')->select('plato.nombre','precio')->get('');
+            $lista_platos = array('0' => 'Seleccione Plato');
+            $i=1;
+            foreach ($plato as $platos) {
+                $lista_platos[$i]=$platos->nombre." $".$platos->precio;
                 $i++;
             }
             
-            return view('homeGarzon')->with('lista',$lista);
-           
+            $comida_mesas = array();
+            $precio_mesas = array();
+            $num_mesa=array();
+            $comida = array();
+            $comida_array= array();
+            $precio_array= array();
+            $num_array= array();
+            $i=0;
+            $j=0;
+            foreach ($mesasid as $id) {
+                $comida = DB::table('plato_mesa')->select('plato.nombre','plato.precio','mesa.numero_mesa')->join('plato','plato.id','=','plato_mesa.id_plato')->join('mesa','mesa.id','=','plato_mesa.id_mesa')->where('plato_mesa.id_mesa',$id)->get();
+                foreach ($comida as $com) {
+                    $comida_array[$i]=$com->nombre;
+                    $precio_array[$i]=$com->precio;
+                    $num_array[$i]=$com->numero_mesa;
+                    $i++;
+                }
+                $i=0;
+                $comida_mesas[$j]=$comida_array;
+                $precio_mesas[$j]=$precio_array;
+                $num_mesa[$j]=$num_array;
+                $comida_array= array();
+                $precio_array= array();
+                $num_array= array();
+                $j++;
+                
+            }
+            return view('homeGarzon',compact('lista', 'lista_platos','mesasid','comida_mesas','precio_mesas','num_mesa'));
         }else if(strpos($test, 'Cocina') !== false){
             return view('homeCocina');
         }else if(strpos($test, 'Master') !== false){
@@ -50,6 +86,10 @@ class HomeController extends Controller
             $clave=$ids->id;
         }
         DB::table('estado_mesa')->insert(['estado' => 1, 'id_mesa' => $clave]);
+
+        //insert plato_mesa
+        DB::table('plato_mesa')->insert(['id_mesa' => $clave, 'id_plato' => $datos->input('sandwich')]);
+
         return back()->withInput();
     }
 }
