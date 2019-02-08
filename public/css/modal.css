@@ -35,9 +35,9 @@ transition: opacity 400ms ease-in;
 	color: #FFFFFF;
 	line-height: 25px;
 	position: absolute;
-	right: -12px;
+	right: 15px;
 	text-align: center;
-	top: -10px;
+	top: 5px;
 	width: 24px;
 	text-decoration: none;
 	font-weight: bold;
@@ -49,3 +49,22 @@ transition: opacity 400ms ease-in;
 	box-shadow: 1px 1px 3px #000;
 }
 .close:hover { background: #00d9ff; }
+
+.modal-body{
+	height: 60%;
+	width: auto;
+	overflow-y: auto;
+  }
+
+.number-especial{
+	width: 15%;
+	height: 21px;
+}
+
+.select-especial{
+	width: 70%;
+}
+
+.label-block{
+	width: 40%;
+}

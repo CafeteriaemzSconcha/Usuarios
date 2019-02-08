@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index(Guard $auth)
     {
         $test = DB::table('users')->select('cargo.nombre_cargo')->join('cargo','cargo.id_users','=','users.id')->where('users.id',$auth->user()->id)->get();
-        if(strpos($test, 'Garzon') !== false){
+        if(strpos($test, 'Caja') !== false){
             $mesas = DB::table('mesa')->select("mesa.numero_mesa",'mesa.id')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where("estado_mesa.estado","Abierto")->orwhere("estado_mesa.estado","Atendido")->get();
             $i=0;
             $lista=array();
@@ -63,18 +63,20 @@ class HomeController extends Controller
                 $j++;
                 
             }
-            return view('homeGarzon',compact('lista', 'lista_platos','mesasid','comida_mesas','precio_mesas','num_mesa'));
+            $bebida = DB::table('bebida')->get();
+            $cafe = DB::table('cafe')->get();
+            $pastel = DB::table('pasteles')->get();
+            
+            return view('homeCaja',compact('lista', 'lista_platos','mesasid','comida_mesas','precio_mesas','num_mesa','cafe','pastel','bebida'));
         }else if(strpos($test, 'Cocina') !== false){
             return view('homeCocina');
         }else if(strpos($test, 'Master') !== false){
             return view('homeMaster');
-        }else if(strpos($test, 'Caja') !== false){
-            return view('homeCaja');
         }
-        
     }
 
     public function getform(Request $datos){
+        
         //insert mesa
         $fecha = date("Y-m-d")." ".date("h:i:s");
         DB::table('mesa')->insert(
@@ -87,9 +89,56 @@ class HomeController extends Controller
         }
         DB::table('estado_mesa')->insert(['estado' => 1, 'id_mesa' => $clave]);
 
-        //insert plato_mesa
-        DB::table('plato_mesa')->insert(['id_mesa' => $clave, 'id_plato' => $datos->input('sandwich')]);
+        //insert tabla intermedia (mesa - comida)
+        if ($datos->input('sandwich') != 0) {
+            DB::table('plato_mesa')->insert(['id_mesa' => $clave, 'id_plato' => $datos->input('sandwich'), 'cantidad' => $datos->input('cantS')]);
+        }
+
+        if ($datos->input('bebida') != 0) {
+            DB::table('bebida_mesa')->insert(['id_mesa' => $clave, 'id_bebida' => $datos->input('bebida'), 'cantidad' => $datos->input('cantB')]);
+        }
+
+        if ($datos->input('cafe') != 0) {
+            DB::table('cafe_mesa')->insert(['id_mesa' => $clave, 'id_cafe' => $datos->input('cafe'), 'cantidad' => $datos->input('cantC')]);
+        }
+
+        if ($datos->input('pastel') != 0) {
+            DB::table('pasteles_mesa')->insert(['id_mesa' => $clave, 'id_pastel' => $datos->input('pastel'), 'cantidad' => $datos->input('cantP')]);
+        }
+
+        $i=1;
+        while (!is_null($datos->input('sandwich'.$i)) ) {
+            if ($datos->input('sandwich'.$i) != 0) {
+                DB::table('plato_mesa')->insert(['id_mesa' => $clave, 'id_plato' => $datos->input('sandwich'.$i), 'cantidad' => $datos->input('cantS')]);
+                $i++;
+            }
+        }
+
+        $i=1;
+        while (!is_null($datos->input('bebida'.$i)) ) {
+            if ($datos->input('bebida'.$i) != 0) {
+                DB::table('bebida_mesa')->insert(['id_mesa' => $clave, 'id_bebida' => $datos->input('bebida'.$i), 'cantidad' => $datos->input('cantB')]);
+                $i++;
+            }  
+        }
+
+        $i=1;
+        while (!is_null($datos->input('cafe'.$i)) ) {
+            if ($datos->input('cafe'.$i) != 0) {
+                DB::table('cafe_mesa')->insert(['id_mesa' => $clave, 'id_cafe' => $datos->input('cafe'.$i), 'cantidad' => $datos->input('cantC')]);
+                $i++;
+            }
+        }
+
+        $i=1;
+        while (!is_null($datos->input('pastel'.$i)) ) {
+            if ($datos->input('pastel'.$i) != 0) {
+                DB::table('pasteles_mesa')->insert(['id_mesa' => $clave, 'id_pastel' => $datos->input('pastel'.$i), 'cantidad' => $datos->input('cantP')]);
+                $i++;
+            }   
+        }
 
         return back()->withInput();
+        
     }
 }
