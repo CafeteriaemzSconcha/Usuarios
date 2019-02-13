@@ -58,7 +58,6 @@ transition: opacity 400ms ease-in;
 
 .number-especial{
 	width: 15%;
-	height: 21px;
 }
 
 .select-especial{
@@ -68,3 +67,29 @@ transition: opacity 400ms ease-in;
 .label-block{
 	width: 40%;
 }
+
+.total_mesa{
+	background-color: transparent;
+	color: #000;
+	border-color: transparent;
+}
+
+ .accordion {
+	background-color: rgb(238, 238, 238);
+	color: #444;
+	cursor: pointer;
+	text-align: left;
+	border: none;
+	outline: none;
+	transition: 0.4s;
+  }
+  
+  .active, .accordion:hover {
+	background-color: rgb(204, 204, 204);
+  }
+  
+  .panel {
+	background-color: white;
+	display: none;
+	overflow: hidden;
+  } 

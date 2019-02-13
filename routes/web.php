@@ -31,4 +31,18 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::post('/', 'HomeController@getform')->name('home');
+
+Route::get('caja', 'CajaController@index');
+
+Route::post('caja', 'CajaController@getform');
+Route::post('editA', 'CajaController@editA');
+Route::get('caja/{num}', 'CajaController@getMesa');
+Route::get('borrar/{id}', 'CajaController@destroy');
+Route::get('editar/{id}', 'CajaController@edit');
+
+Route::get('cocina', 'CocinaController@index');
+Route::get('master', 'MasterController@index');
+
+
+
+

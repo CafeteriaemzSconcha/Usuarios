@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-02-2019 a las 23:14:13
+-- Tiempo de generación: 10-02-2019 a las 23:55:47
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.10
 
@@ -53,18 +53,9 @@ INSERT INTO `bebida` (`id`, `nombre`, `precio`) VALUES
 CREATE TABLE `bebida_mesa` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_bebida` int(10) UNSIGNED NOT NULL,
-  `cantidad` int(2) NOT NULL DEFAULT '1'
+  `cantidad` int(2) NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `bebida_mesa`
---
-
-INSERT INTO `bebida_mesa` (`id_mesa`, `id_bebida`, `cantidad`) VALUES
-(1, 1, 3),
-(1, 2, 3),
-(1, 3, 3),
-(1, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -97,18 +88,9 @@ INSERT INTO `cafe` (`id`, `nombre`, `precio`) VALUES
 CREATE TABLE `cafe_mesa` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_cafe` int(10) UNSIGNED NOT NULL,
-  `cantidad` int(2) NOT NULL DEFAULT '1'
+  `cantidad` int(2) NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `cafe_mesa`
---
-
-INSERT INTO `cafe_mesa` (`id_mesa`, `id_cafe`, `cantidad`) VALUES
-(1, 1, 3),
-(1, 2, 3),
-(1, 3, 3),
-(1, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -127,7 +109,8 @@ CREATE TABLE `cargo` (
 --
 
 INSERT INTO `cargo` (`id`, `nombre_cargo`, `id_users`) VALUES
-(1, 'Caja', 1);
+(1, 'Caja', 1),
+(2, 'Cocina', 2);
 
 -- --------------------------------------------------------
 
@@ -140,13 +123,6 @@ CREATE TABLE `estado_mesa` (
   `estado` enum('Abierto','Atendido','Cerrado') NOT NULL,
   `id_mesa` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `estado_mesa`
---
-
-INSERT INTO `estado_mesa` (`id`, `estado`, `id_mesa`) VALUES
-(1, 'Abierto', 1);
 
 -- --------------------------------------------------------
 
@@ -171,13 +147,6 @@ CREATE TABLE `mesa` (
   `numero_mesa` int(2) UNSIGNED NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `mesa`
---
-
-INSERT INTO `mesa` (`id`, `numero_mesa`, `fecha`) VALUES
-(1, 1, '2019-02-08 07:09:56');
 
 -- --------------------------------------------------------
 
@@ -246,16 +215,9 @@ INSERT INTO `pasteles` (`id`, `nombre`, `precio`) VALUES
 CREATE TABLE `pasteles_mesa` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_pastel` int(10) UNSIGNED NOT NULL,
-  `cantidad` int(2) NOT NULL DEFAULT '1'
+  `cantidad` int(2) NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `pasteles_mesa`
---
-
-INSERT INTO `pasteles_mesa` (`id_mesa`, `id_pastel`, `cantidad`) VALUES
-(1, 1, 3),
-(1, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -286,16 +248,9 @@ INSERT INTO `plato` (`id`, `nombre`, `precio`) VALUES
 CREATE TABLE `plato_mesa` (
   `id_mesa` int(10) UNSIGNED NOT NULL,
   `id_plato` int(10) UNSIGNED NOT NULL,
-  `cantidad` int(2) NOT NULL DEFAULT '1'
+  `cantidad` int(2) NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `plato_mesa`
---
-
-INSERT INTO `plato_mesa` (`id_mesa`, `id_plato`, `cantidad`) VALUES
-(1, 1, 3),
-(1, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -318,7 +273,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'sebas', 'sebastian_concha@hotmail.cl', '$2y$10$nWr1upLBqM9vShlsCToTruJ8mRp68J/0SKfr1emIEX5rb20DZzHBy', 'b780iPy8N01H5cGUHQaqgGp1K1Q84Zk7mnEf4A8bFmTvUDMvPv3KO4Myc77j', '2018-11-28 13:48:30', '2018-11-28 13:48:30');
+(1, 'sebas', 'sebastian_concha@hotmail.cl', '$2y$10$nWr1upLBqM9vShlsCToTruJ8mRp68J/0SKfr1emIEX5rb20DZzHBy', 'wmhsee40HlY9jBZSvcD4X5HTWC73F8wnnGTJpiiiz3L0cA8VjbcuqVtxNknK', '2018-11-28 13:48:30', '2018-11-28 13:48:30'),
+(2, 'carta', 'concha.m.sebastian@gmail.cl', '$2y$10$dSeLtcUKQ2W.zssltL46DuNZRZj03MYzRYK.GLhMkpANKbPWkPlnS', 'bjvmV6XqukvvXB90GkLTrMwShHvKgHWfUWu5Bm8rJ2lC86XoVXQ11b3MlbHq', '2019-02-09 16:56:37', '2019-02-09 16:56:37');
 
 --
 -- Índices para tablas volcadas
@@ -334,8 +290,9 @@ ALTER TABLE `bebida`
 -- Indices de la tabla `bebida_mesa`
 --
 ALTER TABLE `bebida_mesa`
-  ADD PRIMARY KEY (`id_mesa`,`id_bebida`),
-  ADD KEY `id_bebida` (`id_bebida`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_bebida` (`id_bebida`),
+  ADD KEY `id_mesa` (`id_mesa`);
 
 --
 -- Indices de la tabla `cafe`
@@ -347,8 +304,9 @@ ALTER TABLE `cafe`
 -- Indices de la tabla `cafe_mesa`
 --
 ALTER TABLE `cafe_mesa`
-  ADD PRIMARY KEY (`id_mesa`,`id_cafe`),
-  ADD KEY `id_cafe` (`id_cafe`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cafe` (`id_cafe`),
+  ADD KEY `id_mesa` (`id_mesa`);
 
 --
 -- Indices de la tabla `cargo`
@@ -362,7 +320,7 @@ ALTER TABLE `cargo`
 --
 ALTER TABLE `estado_mesa`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_mesa` (`id_mesa`);
+  ADD KEY `estado` (`id_mesa`);
 
 --
 -- Indices de la tabla `helados`
@@ -392,8 +350,9 @@ ALTER TABLE `pasteles`
 -- Indices de la tabla `pasteles_mesa`
 --
 ALTER TABLE `pasteles_mesa`
-  ADD PRIMARY KEY (`id_mesa`,`id_pastel`),
-  ADD KEY `id_pastel` (`id_pastel`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pastel` (`id_pastel`),
+  ADD KEY `id_mesa` (`id_mesa`);
 
 --
 -- Indices de la tabla `plato`
@@ -405,8 +364,9 @@ ALTER TABLE `plato`
 -- Indices de la tabla `plato_mesa`
 --
 ALTER TABLE `plato_mesa`
-  ADD PRIMARY KEY (`id_mesa`,`id_plato`),
-  ADD KEY `id_plato` (`id_plato`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_plato` (`id_plato`),
+  ADD KEY `id_mesa` (`id_mesa`);
 
 --
 -- Indices de la tabla `users`
@@ -425,16 +385,28 @@ ALTER TABLE `bebida`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `bebida_mesa`
+--
+ALTER TABLE `bebida_mesa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `cafe`
 --
 ALTER TABLE `cafe`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `cafe_mesa`
+--
+ALTER TABLE `cafe_mesa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `estado_mesa`
 --
 ALTER TABLE `estado_mesa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `helados`
@@ -446,7 +418,7 @@ ALTER TABLE `helados`
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -461,16 +433,28 @@ ALTER TABLE `pasteles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `pasteles_mesa`
+--
+ALTER TABLE `pasteles_mesa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `plato_mesa`
+--
+ALTER TABLE `plato_mesa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -480,15 +464,15 @@ ALTER TABLE `users`
 -- Filtros para la tabla `bebida_mesa`
 --
 ALTER TABLE `bebida_mesa`
-  ADD CONSTRAINT `bebida_mesa_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`),
-  ADD CONSTRAINT `bebida_mesa_ibfk_2` FOREIGN KEY (`id_bebida`) REFERENCES `bebida` (`id`);
+  ADD CONSTRAINT `bebida_mesa_ibfk_1` FOREIGN KEY (`id_bebida`) REFERENCES `bebida` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `bebida_mesa_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cafe_mesa`
 --
 ALTER TABLE `cafe_mesa`
-  ADD CONSTRAINT `cafe_mesa_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`),
-  ADD CONSTRAINT `cafe_mesa_ibfk_2` FOREIGN KEY (`id_cafe`) REFERENCES `cafe` (`id`);
+  ADD CONSTRAINT `cafe_mesa_ibfk_1` FOREIGN KEY (`id_cafe`) REFERENCES `cafe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cafe_mesa_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cargo`
@@ -500,21 +484,21 @@ ALTER TABLE `cargo`
 -- Filtros para la tabla `estado_mesa`
 --
 ALTER TABLE `estado_mesa`
-  ADD CONSTRAINT `estado_mesa_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`);
+  ADD CONSTRAINT `estado` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pasteles_mesa`
 --
 ALTER TABLE `pasteles_mesa`
-  ADD CONSTRAINT `pasteles_mesa_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`),
-  ADD CONSTRAINT `pasteles_mesa_ibfk_2` FOREIGN KEY (`id_pastel`) REFERENCES `pasteles` (`id`);
+  ADD CONSTRAINT `pasteles_mesa_ibfk_1` FOREIGN KEY (`id_pastel`) REFERENCES `pasteles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pasteles_mesa_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `plato_mesa`
 --
 ALTER TABLE `plato_mesa`
-  ADD CONSTRAINT `plato_mesa_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`),
-  ADD CONSTRAINT `plato_mesa_ibfk_2` FOREIGN KEY (`id_plato`) REFERENCES `plato` (`id`);
+  ADD CONSTRAINT `plato_mesa_ibfk_1` FOREIGN KEY (`id_plato`) REFERENCES `plato` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `plato_mesa_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
