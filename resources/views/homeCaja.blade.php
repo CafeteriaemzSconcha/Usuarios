@@ -457,9 +457,7 @@
         echo "</th>";
         echo "</tr>";
         echo "</table>";
-        echo "<form method='GET' action='caja/$nummesa' accept-charset='UTF-8' onsubmit='return alerta_pago()'>";
-        echo "<input class='btn btn-success' type='submit' value='Pagar'></input>";
-        echo "</form>";
+        echo "<input class='btn btn-success' type='submit' value='Visualizar' onclick='ver($nummesa)'></input>";
 		echo "</div>\n";
 		echo "</div>\n";
 		echo "</div>\n";

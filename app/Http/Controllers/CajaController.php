@@ -62,7 +62,24 @@ class CajaController extends Controller
             return redirect('master');
         }
         DB::table('mesa')->join('estado_mesa','mesa.id','=','estado_mesa.id_mesa')->where([['mesa.numero_mesa',$num],['estado_mesa.estado','Abierto']])->update(['estado_mesa.estado'=>'Cerrado']);
+        
         return back()->withInput();
+    }
+
+    public function imprimir($num){
+        $aut=DB::table('users')->join('cargo','cargo.id_users','=','users.id')->where('users.id',Auth::guard()->user()->id)->get();
+        if (strpos($aut, 'Cocina')) {
+            return redirect('cocina');
+        }else if(strpos($aut, 'Master')){
+            return redirect('master');
+        }
+
+
+        $comida = DB::table('plato_mesa')->join('plato','plato.id','=','plato_mesa.id_plato')->join('mesa','mesa.id','=','plato_mesa.id_mesa')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
+        $bebiditas = DB::table('mesa')->join('bebida_mesa','bebida_mesa.id_mesa','=','mesa.id')->join('bebida','bebida.id','=','bebida_mesa.id_bebida')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
+        $pastelitos = DB::table('mesa')->join('pasteles_mesa','pasteles_mesa.id_mesa','=','mesa.id')->join('pasteles','pasteles.id','=','pasteles_mesa.id_pastel')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
+        $cafeteria = DB::table('mesa')->join('cafe_mesa','cafe_mesa.id_mesa','=','mesa.id')->join('cafe','cafe.id','=','cafe_mesa.id_cafe')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
+        return view('imprimirComandaCaja',compact('cafeteria','pastelitos','bebiditas','comida','num'));
     }
 
     public function destroy($id){

@@ -39,6 +39,8 @@ Route::post('editA', 'CajaController@editA');
 Route::get('caja/{num}', 'CajaController@getMesa');
 Route::get('borrar/{id}', 'CajaController@destroy');
 Route::get('editar/{id}', 'CajaController@edit');
+Route::get('imprimir/{num}', 'CajaController@imprimir');
+
 
 Route::get('cocina', 'CocinaController@index');
 Route::get('master', 'MasterController@index');

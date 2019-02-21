@@ -246,5 +246,13 @@ function hab_borrar(num){
         }
     }
 }
-  
+
+function ver(num){
+    var opciones = "width=219,height=400,scrollbars=NO";
+
+    window.open("imprimir/"+num,"nombreventa na", opciones);
+
+}
+
+
 } 
