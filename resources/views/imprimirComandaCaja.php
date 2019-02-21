@@ -123,7 +123,7 @@ foreach ($productos as $producto) {
  
     /*Y a la derecha para el importe*/
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
-    $printer->text(' $' . $producto->precio*$producto->cantidad . "\n");
+    $printer->text(' $' . $producto->precio * $producto->cantidad . "\n");
 }
  
 /*
@@ -140,7 +140,7 @@ $printer->text("Total sugerida: $". $total*1.1 ."\n");
 /*
 	Podemos poner también un pie de página
 */
-$printer->text("Muchas gracias por su compra\n");
+$printer->text("Muchas gracias por preferirnos\n");
  
  
  
@@ -167,3 +167,6 @@ $printer->pulse();
 */
 $printer->close();
 ?>
+<script type='text/javascript'>
+	window.close();
+</script>

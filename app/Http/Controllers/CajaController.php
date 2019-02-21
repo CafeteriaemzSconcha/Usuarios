@@ -108,6 +108,16 @@ class CajaController extends Controller
             $clave=$ids->id;
         }
 
+        if ($datos->input('obs')!=null) {
+            $obs=DB::table('mesa')->select('mesa.observacion')->where('mesa.id','=', $clave)->get();
+            foreach ($obs as $obss) {
+                $ob=$obss->observacion.", ".$datos->input('obs');
+            }
+            
+            DB::table('mesa')->where('mesa.id',$clave)->update(['mesa.observacion'=>$ob]);
+            
+        }
+
         if ($datos->input('sandwichE') != 0) {
             DB::table('plato_mesa')->insert(['id_mesa' => $clave, 'id_plato' => $datos->input('sandwichE'), 'cantidad' => $datos->input('cantSE')]);
         }
@@ -170,7 +180,7 @@ class CajaController extends Controller
         //insert mesa
         $fecha = date("Y-m-d")." ".date("h:i:s");
         DB::table('mesa')->insert(
-            ['numero_mesa' => $datos->input('num') , 'fecha' => $fecha]
+            ['numero_mesa' => $datos->input('num') , 'fecha' => $fecha, 'observacion' => $datos->input('obs')]
         );
         //insert estado_mesa
         $id = DB::table('mesa')->select('id')->where([['fecha','=',$fecha],['numero_mesa','=', $datos->input('num')]])->get();

@@ -4,7 +4,7 @@ var cuentaC=0;
 var cuentaP=0;
 
 function alerta_pago(){
-    var opcion = confirm("Esta seguro que desea pagar");
+    var opcion = confirm("Esta seguro que desea cerrar la mesa");
     if (opcion == true) {
         return true;
 	} else {
@@ -249,9 +249,7 @@ function hab_borrar(num){
 
 function ver(num){
     var opciones = "width=219,height=400,scrollbars=NO";
-
     window.open("imprimir/"+num,"nombreventa na", opciones);
-
 }
 
 
