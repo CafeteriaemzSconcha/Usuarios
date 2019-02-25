@@ -43,22 +43,42 @@ class Producto{
 $productos = array();
 
 foreach ($comida as $plato) {
-	$com = new Producto($plato->nombre,$plato->precio,$plato->cantidad);
+	$com = new Producto($plato->nombre,$plato->precio*(1-($plato->descuento/100)),$plato->cantidad);
 	array_push($productos,$com);
 }
 
 foreach ($bebiditas as $bebida) {
-	$com = new Producto($bebida->nombre,$bebida->precio,$bebida->cantidad);
+	$com = new Producto($bebida->nombre,$bebida->precio*(1-($bebida->descuento/100)),$bebida->cantidad);
 	array_push($productos,$com);
 }
 
 foreach ($pastelitos as $pastel) {
-	$com = new Producto($pastel->nombre,$pastel->precio,$pastel->cantidad);
+	$com = new Producto($pastel->nombre,$pastel->precio*(1-($pastel->descuento/100)),$pastel->cantidad);
 	array_push($productos,$com);
 }
 
 foreach ($cafeteria as $cafe) {
-	$com = new Producto($cafe->nombre,$cafe->precio,$cafe->cantidad);
+	$com = new Producto($cafe->nombre,$cafe->precio*(1-($cafe->descuento/100)),$cafe->cantidad);
+	array_push($productos,$com);
+}
+
+foreach ($agregaditos as $agregado) {
+	$com = new Producto($agregado->nombre,$agregado->precio*(1-($agregado->descuento/100)),1);
+	array_push($productos,$com);
+}
+
+foreach ($heladitos as $helado) {
+	$com = new Producto($helado->nombre,$helado->precio*(1-($helado->descuento/100)),$helado->cantidad);
+	array_push($productos,$com);
+}
+
+foreach ($postresitos as $postre) {
+	$com = new Producto($postre->nombre,$postre->precio*(1-($postre->descuento/100)),$postre->cantidad);
+	array_push($productos,$com);
+}
+
+foreach ($desayunitos as $desayuno) {
+	$com = new Producto($desayuno->nombre,$desayuno->precio*(1-($desayuno->descuento/100)),$desayuno->cantidad);
 	array_push($productos,$com);
 }
  
@@ -106,7 +126,9 @@ try{
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
 $printer->text("\n"); 
- 
+
+$printer->text("Mesa ".$num.":"); 
+$printer->text("\n\n");
 /*
 	Ahora vamos a imprimir los
 	productos
@@ -131,16 +153,27 @@ foreach ($productos as $producto) {
 	los productos, ahora va el total
 */
 $printer->text("--------\n");
-$printer->text("Total: $". $total ."\n");
-$printer->text("propina sugerida: $". $total*0.1 ."\n");
+$total=explode(".",$total);
+$printer->text("Total: $". $total[0] ."\n");
+if ($desc != 0) {
+	$printer->text("Descuento: ". $desc ."%\n");
+	$total=explode(".",$total[0]-$total[0]*($desc/100));
+	$printer->text("Total c/Desc: $". $total[0] ."\n");
+}
+
+$propi=explode(".",$total[0]*0.1);
+$total_p=explode(".",$total[0]*1.1);
+$printer->text("propina sugerida: $". $propi[0] ."\n");
 $printer->text("--------\n");
-$printer->text("Total sugerida: $". $total*1.1 ."\n");
+$printer->text("Total sugerido: $". $total_p[0] ."\n");
  
  
 /*
 	Podemos poner también un pie de página
 */
-$printer->text("Muchas gracias por preferirnos\n");
+$printer->text("\n");
+
+$printer->text("Muchas gracias por su visita\n");
  
  
  

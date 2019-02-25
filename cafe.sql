@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-02-2019 a las 23:55:47
+-- Tiempo de generación: 21-02-2019 a las 23:37:34
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.10
 
@@ -35,18 +35,6 @@ CREATE TABLE `bebida` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `bebida`
---
-
-INSERT INTO `bebida` (`id`, `nombre`, `precio`) VALUES
-(1, 'Jugo natural durazno', 1500),
-(2, 'Jugo natural frutilla', 1500),
-(3, 'Coca cola light', 1500),
-(4, 'Sprite Zero', 1500);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `bebida_mesa`
 --
 
@@ -56,8 +44,6 @@ CREATE TABLE `bebida_mesa` (
   `cantidad` int(2) NOT NULL DEFAULT '1',
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `cafe`
@@ -70,18 +56,6 @@ CREATE TABLE `cafe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `cafe`
---
-
-INSERT INTO `cafe` (`id`, `nombre`, `precio`) VALUES
-(1, 'Iced tea Adagio mango', 2500),
-(2, 'Iced tea Adagio verde bonita', 2500),
-(3, 'Espresso', 1300),
-(4, 'Latte', 1800);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `cafe_mesa`
 --
 
@@ -91,8 +65,6 @@ CREATE TABLE `cafe_mesa` (
   `cantidad` int(2) NOT NULL DEFAULT '1',
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `cargo`
@@ -115,8 +87,40 @@ INSERT INTO `cargo` (`id`, `nombre_cargo`, `id_users`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estado_mesa`
+-- Estructura de tabla para la tabla `desayuno`
 --
+
+CREATE TABLE `desayuno` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `precio` int(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `desayuno_mesa`
+--
+
+CREATE TABLE `desayuno_mesa` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_mesa` int(10) UNSIGNED NOT NULL,
+  `id_desayuno` int(10) UNSIGNED NOT NULL,
+  `cantidad` int(2) UNSIGNED DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `descuentos`
+--
+
+CREATE TABLE `descuentos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `descuento` int(2) UNSIGNED DEFAULT '0',
+  `id_mesa` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE `estado_mesa` (
   `id` int(10) UNSIGNED NOT NULL,
@@ -124,16 +128,24 @@ CREATE TABLE `estado_mesa` (
   `id_mesa` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `helados`
---
 
 CREATE TABLE `helados` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `precio` int(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `helado_mesa`
+--
+
+CREATE TABLE `helado_mesa` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_mesa` int(10) UNSIGNED NOT NULL,
+  `id_helado` int(10) UNSIGNED NOT NULL,
+  `cantidad` int(2) UNSIGNED DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -145,14 +157,9 @@ CREATE TABLE `helados` (
 CREATE TABLE `mesa` (
   `id` int(10) UNSIGNED NOT NULL,
   `numero_mesa` int(2) UNSIGNED NOT NULL,
-  `fecha` datetime NOT NULL
+  `fecha` datetime NOT NULL,
+  `observacion` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `migrations`
---
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
@@ -198,15 +205,7 @@ CREATE TABLE `pasteles` (
   `precio` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `pasteles`
---
 
-INSERT INTO `pasteles` (`id`, `nombre`, `precio`) VALUES
-(1, 'Donuts cobertura chocolate', 890),
-(2, 'Muffin americano Arandano', 1300);
-
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `pasteles_mesa`
@@ -219,7 +218,6 @@ CREATE TABLE `pasteles_mesa` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `plato`
@@ -232,16 +230,6 @@ CREATE TABLE `plato` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `plato`
---
-
-INSERT INTO `plato` (`id`, `nombre`, `precio`) VALUES
-(1, 'Vegetariano del puerto', 4200),
-(2, 'Caribeño reina pepiado', 4200);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `plato_mesa`
 --
 
@@ -250,6 +238,29 @@ CREATE TABLE `plato_mesa` (
   `id_plato` int(10) UNSIGNED NOT NULL,
   `cantidad` int(2) NOT NULL DEFAULT '1',
   `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Estructura de tabla para la tabla `postres`
+--
+
+CREATE TABLE `postres` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `precio` int(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `postre_mesa`
+--
+
+CREATE TABLE `postre_mesa` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_mesa` int(10) UNSIGNED NOT NULL,
+  `id_postre` int(10) UNSIGNED NOT NULL,
+  `cantidad` int(2) UNSIGNED DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -316,6 +327,27 @@ ALTER TABLE `cargo`
   ADD KEY `id_users` (`id_users`);
 
 --
+-- Indices de la tabla `desayuno`
+--
+ALTER TABLE `desayuno`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `desayuno_mesa`
+--
+ALTER TABLE `desayuno_mesa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_desayuno` (`id_desayuno`),
+  ADD KEY `id_mesa` (`id_mesa`);
+
+--
+-- Indices de la tabla `descuentos`
+--
+ALTER TABLE `descuentos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_mesa` (`id_mesa`);
+
+--
 -- Indices de la tabla `estado_mesa`
 --
 ALTER TABLE `estado_mesa`
@@ -327,6 +359,14 @@ ALTER TABLE `estado_mesa`
 --
 ALTER TABLE `helados`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `helado_mesa`
+--
+ALTER TABLE `helado_mesa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_helado` (`id_helado`),
+  ADD KEY `id_mesa` (`id_mesa`);
 
 --
 -- Indices de la tabla `mesa`
@@ -369,6 +409,20 @@ ALTER TABLE `plato_mesa`
   ADD KEY `id_mesa` (`id_mesa`);
 
 --
+-- Indices de la tabla `postres`
+--
+ALTER TABLE `postres`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `postre_mesa`
+--
+ALTER TABLE `postre_mesa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_mesa` (`id_mesa`),
+  ADD KEY `id_postre` (`id_postre`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -382,31 +436,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `bebida`
 --
 ALTER TABLE `bebida`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `bebida_mesa`
 --
 ALTER TABLE `bebida_mesa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `cafe`
 --
 ALTER TABLE `cafe`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `cafe_mesa`
 --
 ALTER TABLE `cafe_mesa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT de la tabla `desayuno`
+--
+ALTER TABLE `desayuno`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `desayuno_mesa`
+--
+ALTER TABLE `desayuno_mesa`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `descuentos`
+--
+ALTER TABLE `descuentos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `estado_mesa`
 --
 ALTER TABLE `estado_mesa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `helados`
@@ -415,46 +487,64 @@ ALTER TABLE `helados`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `helado_mesa`
+--
+ALTER TABLE `helado_mesa`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `pasteles`
 --
 ALTER TABLE `pasteles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `pasteles_mesa`
 --
 ALTER TABLE `pasteles_mesa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `plato_mesa`
 --
 ALTER TABLE `plato_mesa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT de la tabla `postres`
+--
+ALTER TABLE `postres`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `postre_mesa`
+--
+ALTER TABLE `postre_mesa`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Restricciones para tablas volcadas
@@ -481,10 +571,30 @@ ALTER TABLE `cargo`
   ADD CONSTRAINT `cargo_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
+-- Filtros para la tabla `desayuno_mesa`
+--
+ALTER TABLE `desayuno_mesa`
+  ADD CONSTRAINT `desayuno_mesa_ibfk_1` FOREIGN KEY (`id_desayuno`) REFERENCES `desayuno` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `desayuno_mesa_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `descuentos`
+--
+ALTER TABLE `descuentos`
+  ADD CONSTRAINT `descuentos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `estado_mesa`
 --
 ALTER TABLE `estado_mesa`
   ADD CONSTRAINT `estado` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `helado_mesa`
+--
+ALTER TABLE `helado_mesa`
+  ADD CONSTRAINT `helado_mesa_ibfk_1` FOREIGN KEY (`id_helado`) REFERENCES `helados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `helado_mesa_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pasteles_mesa`
@@ -499,6 +609,13 @@ ALTER TABLE `pasteles_mesa`
 ALTER TABLE `plato_mesa`
   ADD CONSTRAINT `plato_mesa_ibfk_1` FOREIGN KEY (`id_plato`) REFERENCES `plato` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `plato_mesa_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `postre_mesa`
+--
+ALTER TABLE `postre_mesa`
+  ADD CONSTRAINT `postre_mesa_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `postre_mesa_ibfk_2` FOREIGN KEY (`id_postre`) REFERENCES `postres` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -74,36 +74,47 @@
 		    </div>
             <div class='modal-body center-block'>
                 {{ Form::open(array('url' => '/caja','method' => 'POST', 'onSubmit' => 'return hab_mesaG()')) }}
-                <div class="form-row">
-                    <div class="col-auto">
-                        {{ Form::label('Ingrese mesa', 'Ingrese mesa:') }}
-                    </div>
-                    <div class="col-auto">
-                        {{ Form::number('num', 1,array('id'=>'num','min'=>'1' ,'max'=>16,'class'=>'form-control form-control-sm'))}}
-                    </div>    
-                </div>  
                 <div class='container'>
+                    <div class="form-row">
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            {{ Form::label('Ingrese mesa', 'Ingrese mesa:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::number('num', 1,array('id'=>'num','min'=>'1' ,'max'=>16,'class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-6"></div>    
+                    </div>  
                     <div id='divSandwich'>
                         <div class="form-row">
-                            <div class="col-4"></div>
-                            <div class="col-auto">
+                            <div class="col-1">
                                 <button id='minusS' type="button" onclick="destroyS()" class='btn btn-secondary btn-sm'>-</button>
                             </div>
-                            <div class="col-auto">
-                                {{ Form::label('Sandwich', 'Platos calientes:') }}
+                            <div class="col-6">
+                                {{ Form::label('Plato', 'Plato:') }}
                             </div>
-                            <div class="col-auto">
+                            <div class="col-2">
+                                {{ Form::label('Cant', 'Cant:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
                                 <button id='masS' type="button" onclick="duplicateS()" class='btn btn-secondary btn-sm'>+</button>
                             </div>
-                            <div class="col-3"></div>
                         </div>
                         <div class="form-row" id='rowSandwich'>
-                            <div class="col-8">
+                            <div class="col-1"></div>
+                            <div class="col-6">
                                 {{ Form::select('sandwich', $lista_platos ,null,['id'=>'sandwich','class'=>'form-control form-control-sm']) }}
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 {{ Form::number('cantS', 1,array('id'=>'cantS','min'=>'1','class'=>'form-control form-control-sm'))}}
                             </div>
+                            <div class="col-2">
+                                {{ Form::number('descS', 0,array('id'=>'descS','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
                         </div>
                     </div>
                     <div id='divBebida'>
@@ -114,25 +125,34 @@
                             }
                         @endphp
                         <div class="form-row">
-                            <div class="col-4"></div>
-                            <div class="col-auto">
+                            <div class="col-1">
                                 <button id='minusB' type="button" onclick="destroyB()" class='btn btn-secondary btn-sm'>-</button>
                             </div>
-                            <div class="col-auto">
-                            {{ Form::label('Bebidas', 'Jugos y bebidas frias:') }}    
+                            <div class="col-6">
+                                {{ Form::label('Liquidos', 'Liquidos:') }}
                             </div>
-                            <div class="col-auto">
+                            <div class="col-2">
+                                {{ Form::label('Cant', 'Cant:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
                                 <button id='masB' type="button" onclick="duplicateB()" class='btn btn-secondary btn-sm'>+</button>
                             </div>
-                            <div class="col-3"></div>
                         </div>
                         <div class="form-row" id='rowBebida'>
-                            <div class="col-8">
+                            <div class="col-1"></div>
+                            <div class="col-6">
                                 {{ Form::select('bebida', $bebidas ,null,['id'=>'bebida','class'=>'form-control form-control-sm']) }}
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 {{ Form::number('cantB', 1,array('id'=>'cantB','min'=>'1','class'=>'form-control form-control-sm'))}}
                             </div>
+                            <div class="col-2">
+                                {{ Form::number('descB', 0,array('id'=>'descB','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
                         </div>
                     </div>
                     <div id='divCafe'>
@@ -143,25 +163,34 @@
                             }
                         @endphp
                         <div class="form-row">
-                            <div class="col-4"></div>
-                            <div class="col-auto">
+                            <div class="col-1">
                                 <button id='minusC' type="button" onclick="destroyC()" class='btn btn-secondary btn-sm'>-</button>
                             </div>
-                            <div class="col-auto">
-                                {{ Form::label('Cafe', 'Té o Cafe:') }}
+                            <div class="col-6">
+                                {{ Form::label('cafe', 'Cafetería:') }}
                             </div>
-                            <div class="col-auto">    
+                            <div class="col-2">
+                                {{ Form::label('Cant', 'Cant:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
                                 <button id='masC' type="button" onclick="duplicateC()" class='btn btn-secondary btn-sm'>+</button>
                             </div>
-                            <div class="col-3"></div>
                         </div>
                         <div class="form-row" id='rowCafe'>
-                            <div class="col-8">
+                            <div class="col-1"></div>
+                            <div class="col-6">
                                 {{ Form::select('cafe', $cafes ,null,['id'=> 'cafe','class'=>'form-control form-control-sm']) }}
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 {{ Form::number('cantC', 1,array('id'=>'cantC','min'=>'1','class'=>'form-control form-control-sm'))}}
                             </div>
+                            <div class="col-2">
+                                {{ Form::number('descC', 0,array('id'=>'descC','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
                         </div>
                     </div>
                     <div id='divPastel'>
@@ -172,42 +201,205 @@
                             }
                         @endphp
                         <div class="form-row">
-                            <div class="col-5"></div>
-                            <div class="-auto">
+                            <div class="col-1">
                                 <button id='minusP' type="button" onclick="destroyP()" class='btn btn-secondary btn-sm'>-</button>
                             </div>
-                            <div class="col-auto">    
-                                {{ Form::label('Pastel', 'Pastelería:') }}
+                            <div class="col-6">
+                                {{ Form::label('pastel', 'Pastelería:') }}
                             </div>
-                            <div class="col-auto">
-                                <button id='masP' type="button" onclick="duplicateP()" class='btn btn-secondary btn-sm'>+</button>
+                            <div class="col-2">
+                                {{ Form::label('Cant', 'Cant:') }}
                             </div>
-                            <div class="col-3"></div>
+                            <div class="col-2">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
+                                <button id='masC' type="button" onclick="duplicateP()" class='btn btn-secondary btn-sm'>+</button>
+                            </div>
                         </div>
                         <div class="form-row" id='rowPastel'>
-                            <div class="col-8" id='selec_pastel'>
+                            <div class="col-1"></div>
+                            <div class="col-6" id='selec_pastel'>
                                 {{ Form::select('pastel', $pasteles ,null,['id'=>'pastel','class'=>'form-control form-control-sm']) }}
                             </div>
-                            <div class="col-3" id='number_cant'>
+                            <div class="col-2" id='number_cant'>
                                 {{ Form::number('cantP', 1,array('id'=>'cantP','min'=>'1','class'=>'form-control form-control-sm'))}}
                             </div>
+                            <div class="col-2">
+                                {{ Form::number('descP', 0,array('id'=>'descP','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+
+                    <div id='divHelado'>
+                        @php
+                            $helados=array('0' => 'Seleccione Helado');
+                            foreach($helado as $hel){
+                                array_push($helados,$hel->nombre." $".$hel->precio);
+                            }
+                        @endphp
+                        <div class="form-row">
+                            <div class="col-1">
+                                <button id='minusH' type="button" onclick="destroyH()" class='btn btn-secondary btn-sm'>-</button>
+                            </div>
+                            <div class="col-6">
+                                {{ Form::label('helado', 'Heladería:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Cant', 'Cant:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
+                                <button id='masH' type="button" onclick="duplicateH()" class='btn btn-secondary btn-sm'>+</button>
+                            </div>
+                        </div>
+                        <div class="form-row" id='rowHelado'>
+                            <div class="col-1"></div>
+                            <div class="col-6">
+                                {{ Form::select('helado', $helados ,null,['id'=>'helado','class'=>'form-control form-control-sm']) }}
+                            </div>
+                            <div class="col-2" id='number_cant'>
+                                {{ Form::number('cantH', 1,array('id'=>'cantH','min'=>'1','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::number('descH', 0,array('id'=>'descH','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+
+                    <div id='divPostre'>
+                        @php
+                            $postres=array('0' => 'Seleccione postre');
+                            foreach($postre as $pos){
+                                array_push($postres,$pos->nombre." $".$pos->precio);
+                            }
+                        @endphp
+                        <div class="form-row">
+                            <div class="col-1">
+                                <button id='minusPO' type="button" onclick="destroyPO()" class='btn btn-secondary btn-sm'>-</button>
+                            </div>
+                            <div class="col-6">
+                                {{ Form::label('postre', 'Postres:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Cant', 'Cant:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
+                                <button id='masPO' type="button" onclick="duplicatePO()" class='btn btn-secondary btn-sm'>+</button>
+                            </div>
+                        </div>
+                        <div class="form-row" id='rowPostre'>
+                            <div class="col-1"></div>
+                            <div class="col-6">
+                                {{ Form::select('postre', $postres ,null,['id'=>'postre','class'=>'form-control form-control-sm']) }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::number('cantPO', 1,array('id'=>'cantPO','min'=>'1','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::number('descPO', 0,array('id'=>'descPO','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+
+                    <div id='divDesayuno'>
+                        @php
+                            $desayunos=array('0' => 'Seleccione desayuno u once');
+                            foreach($desayuno as $des){
+                                array_push($desayunos,$des->nombre." $".$des->precio);
+                            }
+                        @endphp
+                        <div class="form-row">
+                            <div class="col-1">
+                                <button id='minusD' type="button" onclick="destroyD()" class='btn btn-secondary btn-sm'>-</button>
+                            </div>
+                            <div class="col-6">
+                                {{ Form::label('desayuno', 'Desayunos u onces:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Cant', 'Cant:') }}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
+                                <button id='masD' type="button" onclick="duplicateD()" class='btn btn-secondary btn-sm'>+</button>
+                            </div>
+                        </div>
+                        <div class="form-row" id='rowDesayuno'>
+                            <div class="col-1"></div>
+                            <div class="col-6">
+                                {{ Form::select('desayuno', $desayunos ,null,['id'=>'desayuno','class'=>'form-control form-control-sm']) }}
+                            </div>
+                            <div class="col-2" id='number_cant'>
+                                {{ Form::number('cantD', 1,array('id'=>'cantD','min'=>'1','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-2">
+                                {{ Form::number('descD', 0,array('id'=>'descD','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+
+                    <div id='divAgregado'>
+                        @php
+                            $agregados=array('0' => 'Seleccione agregado');
+                            foreach($agregado as $agr){
+                                array_push($agregados,$agr->nombre." $".$agr->precio);
+                            }
+                        @endphp
+                        <div class="form-row">
+                            <div class="col-1">
+                                <button id='minusA' type="button" onclick="destroyA()" class='btn btn-secondary btn-sm'>-</button>
+                            </div>
+                            <div class="col-6">
+                                {{ Form::label('Agregados', 'Agregados:') }}
+                            </div>
+                            <div class="col-4">
+                                {{ Form::label('Desc', 'Desc:') }}
+                            </div>
+                            <div class="col-1">
+                                <button id='masD' type="button" onclick="duplicateA()" class='btn btn-secondary btn-sm'>+</button>
+                            </div>
+                        </div>
+                        <div class="form-row" id='rowAgregado'>
+                            <div class="col-1"></div>
+                            <div class="col-6">
+                                {{ Form::select('agregado', $agregados ,null,['id'=>'agregado','class'=>'form-control form-control-sm']) }}
+                            </div>
+                            <div class="col-4">
+                                {{ Form::number('descA', 0,array('id'=>'descA','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                            </div>
+                            <div class="col-1"></div>
                         </div>
                     </div>
 
                     <div class='form-row' id='observacion'>
-                        <div class="col-auto">
+                        <div class="col-1"></div>
+                        <div class="col-10">
                             {{ Form::label('Observaciones', 'Observaciones: ') }} 
                             {{ Form::textarea('obs',null,array('id'=>'obs','class'=>'form-control','cols'=>45,'rows'=>5,'placeholder'=>'Ej: sin tomate'))}}
                         </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                            {{ Form::submit('Habilitar mesa', array('class' => 'btn btn-success')) }}
+                        </div>
+                        <div class="col-4"></div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="col-4"></div>
-                    <div class="col-auto">
-                        {{ Form::submit('Habilitar mesa', array('class' => 'btn btn-success')) }}
-                    </div>
-                    <div class="col-4"></div>
-                </div>
+                
                 {{ Form::close() }}
                 <h3 id='ocupado'></h3>
                 
@@ -241,30 +433,39 @@
             @csrf
             <div class='container'>
                 
-                <div id='divSandwichE'>
+                <div id='divSandwichE{{$nummesa}}'>
                     <div class="form-row">
-                        <div class="col-3"></div>
-                        <div class="col-auto">
-                            <button id='minusS' type="button" onclick="destroySE()" class='btn btn-secondary btn-sm'>-</button>
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroySE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
                         </div>
-                        <div class="col-3">
-                            {{ Form::label('Sandwich', 'Platos calientes:') }}
+                        <div class="col-6">
+                            {{ Form::label('Plato', 'Plato:') }}
                         </div>
-                        <div class="col-auto">
-                            <button id='masS' type="button" onclick="duplicateSE()" class='btn btn-secondary btn-sm'>+</button>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
                         </div>
-                        <div class="col-3"></div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicateSE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
+                        </div>
                     </div>
-                    <div class="form-row" id='rowSandwichE'>
-                        <div class="col-9">
+                    <div class="form-row" id='rowSandwichE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6">
                             {{ Form::select('sandwichE', $lista_platos ,null,['id'=>'sandwichE','class'=>'form-control form-control-sm']) }}
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             {{ Form::number('cantSE', 1,array('id'=>'cantSE','min'=>'1','class'=>'form-control form-control-sm'))}}
                         </div>
+                        <div class="col-2">
+                            {{ Form::number('descSE', 0,array('id'=>'descSE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-1"></div>
                     </div>
                 </div>
-                <div id='divBebidaE'>
+                <div id='divBebidaE{{$nummesa}}'>
                     @php
                         $bebidas=array('0' => 'Seleccione Bebida');
                         foreach($bebida as $beb){
@@ -272,28 +473,37 @@
                         }
                     @endphp
                     <div class="form-row">
-                        <div class="col-3"></div>
-                        <div class="col-auto">
-                            <button id='minusB' type="button" onclick="destroyBE()" class='btn btn-secondary btn-sm'>-</button>
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroyBE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
                         </div>
-                        <div class="col-3">
-                        {{ Form::label('Bebidas', 'Jugos y bebidas frias:') }}    
+                        <div class="col-6">
+                            {{ Form::label('Bebida', 'Liquidos:') }}
                         </div>
-                        <div class="col-auto">
-                            <button id='masB' type="button" onclick="duplicateBE()" class='btn btn-secondary btn-sm'>+</button>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
                         </div>
-                        <div class="col-3"></div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicateBE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
+                        </div>
                     </div>
-                    <div class="form-row" id='rowBebidaE'>
-                        <div class="col-9">
+                    <div class="form-row" id='rowBebidaE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6">
                             {{ Form::select('bebidaE', $bebidas ,null,['id'=>'bebidaE','class'=>'form-control form-control-sm']) }}
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             {{ Form::number('cantBE', 1,array('id'=>'cantBE','min'=>'1','class'=>'form-control form-control-sm'))}}
                         </div>
+                        <div class="col-2">
+                            {{ Form::number('descBE', 0,array('id'=>'descBE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-1"></div>
                     </div>
                 </div>
-                <div id='divCafeE'>
+                <div id='divCafeE{{$nummesa}}'>
                     @php
                         $cafes=array('0' => 'Seleccione te o cafe');
                         foreach($cafe as $caf){
@@ -301,28 +511,37 @@
                         }
                     @endphp
                     <div class="form-row">
-                        <div class="col-3"></div>
-                        <div class="col-auto">
-                            <button id='minusC' type="button" onclick="destroyCE()" class='btn btn-secondary btn-sm'>-</button>
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroyCE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
                         </div>
-                        <div class="col-3">
-                            {{ Form::label('Cafe', 'Té o Cafe:') }}
+                        <div class="col-6">
+                            {{ Form::label('Cafe', 'Cafetería:') }}
                         </div>
-                        <div class="col-auto">    
-                            <button id='masC' type="button" onclick="duplicateCE()" class='btn btn-secondary btn-sm'>+</button>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
                         </div>
-                        <div class="col-3"></div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicateCE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
+                        </div>
                     </div>
-                    <div class="form-row" id='rowCafeE'>
-                        <div class="col-9">
+                    <div class="form-row" id='rowCafeE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6">
                             {{ Form::select('cafeE', $cafes ,null,['id'=> 'cafeE','class'=>'form-control form-control-sm']) }}
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             {{ Form::number('cantCE', 1,array('id'=>'cantCE','min'=>'1','class'=>'form-control form-control-sm'))}}
                         </div>
+                        <div class="col-2">
+                            {{ Form::number('descCE', 0,array('id'=>'descCE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-1"></div>
                     </div>
                 </div>
-                <div id='divPastelE'>
+                <div id='divPastelE{{$nummesa}}'>
                     @php
                         $pasteles=array('0' => 'Seleccione pastel');
                         foreach($pastel as $pas){
@@ -330,169 +549,483 @@
                         }
                     @endphp
                     <div class="form-row align-items-center">
-                        <div class="col-3"></div>
-                        <div class="col-auto">
-                            <button id='minusP' type="button" onclick="destroyPE()" class='btn btn-secondary btn-sm'>-</button>
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroyPE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
                         </div>
-                        <div class="col-3 align-items-center">    
+                        <div class="col-6">
                             {{ Form::label('Pastel', 'Pastelería:') }}
                         </div>
-                        <div class="col-auto">
-                            <button id='masP' type="button" onclick="duplicatePE()" class='btn btn-secondary btn-sm'>+</button>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicatePE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
+                        </div>
+                    </div>
+                    <div class="form-row" id='rowPastelE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6" id='selec_pastel'>
+                            {{ Form::select('pastelE', $pasteles ,null,['id'=>'pastelE','class'=>'form-control form-control-sm']) }}
+                        </div>
+                        <div class="col-2" id='number_cant'>
+                            {{ Form::number('cantPE', 1,array('id'=>'cantPE','min'=>'1','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::number('descPE', 0,array('id'=>'descPE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
                         </div>
                         <div class="col-1"></div>
                     </div>
-                    <div class="form-row" id='rowPastelE'>
-                        <div class="col-9" id='selec_pastel'>
-                            {{ Form::select('pastelE', $pasteles ,null,['id'=>'pastelE','class'=>'form-control form-control-sm']) }}
+                </div>   
+                <div id='divHeladoE{{$nummesa}}'>
+                    @php
+                        $helados=array('0' => 'Seleccione Helado');
+                        foreach($helado as $hel){
+                            array_push($helados,$hel->nombre." $".$hel->precio);
+                        }
+                    @endphp
+                    <div class="form-row">
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroyHE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
                         </div>
-                        <div class="col-3" id='number_cant'>
-                            {{ Form::number('cantPE', 1,array('id'=>'cantPE','min'=>'1','class'=>'form-control form-control-sm'))}}
+                        <div class="col-6">
+                            {{ Form::label('Helado', 'Heladería:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicateHE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
                         </div>
                     </div>
-                    <div class='form-row' id='observacion'>
-                        <div class="col-auto">
-                            {{ Form::label('Observaciones', 'Observaciones: ') }} 
-                            {{ Form::textarea('obs',null,array('id'=>'obs','class'=>'form-control','cols'=>45,'rows'=>5,'placeholder'=>'Ej: sin tomate'))}}
+                    <div class="form-row" id='rowHeladoE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6">
+                            {{ Form::select('heladoE', $helados ,null,['id'=>'heladoE','class'=>'form-control form-control-sm']) }}
+                        </div>
+                        <div class="col-2" id='number_cant'>
+                            {{ Form::number('cantHE', 1,array('id'=>'cantHE','min'=>'1','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::number('descHE', 0,array('id'=>'descHE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+
+                <div id='divPostreE{{$nummesa}}'>
+                    @php
+                        $postres=array('0' => 'Seleccione postre');
+                        foreach($postre as $pos){
+                            array_push($postres,$pos->nombre." $".$pos->precio);
+                        }
+                    @endphp
+                    <div class="form-row">
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroyPOE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
+                        </div>
+                        <div class="col-6">
+                            {{ Form::label('Postre', 'Postres:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicatePOE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
                         </div>
                     </div>
+                    <div class="form-row" id='rowPostreE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6">
+                            {{ Form::select('postreE', $postres ,null,['id'=>'postreE','class'=>'form-control form-control-sm']) }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::number('cantPOE', 1,array('id'=>'cantPOE','min'=>'1','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::number('descPOE', 0,array('id'=>'descPOE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+
+                <div id='divDesayunoE{{$nummesa}}'>
+                    @php
+                        $desayunos=array('0' => 'Seleccione desayuno u once');
+                        foreach($desayuno as $des){
+                            array_push($desayunos,$des->nombre." $".$des->precio);
+                        }
+                    @endphp
+                    <div class="form-row">
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroyDE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
+                        </div>
+                        <div class="col-6">
+                            {{ Form::label('Desayuno', 'Desayuno u once:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicateDE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
+                        </div>
+                    </div>
+                    <div class="form-row" id='rowDesayunoE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6">
+                            {{ Form::select('desayunoE', $desayunos ,null,['id'=>'desayunoE','class'=>'form-control form-control-sm']) }}
+                        </div>
+                        <div class="col-2" id='number_cant'>
+                            {{ Form::number('cantDE', 1,array('id'=>'cantDE','min'=>'1','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::number('descDE', 0,array('id'=>'descDE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+
+                <div id='divAgregadoE{{$nummesa}}'>
+                    @php
+                        $agregados=array('0' => 'Seleccione agregado');
+                        foreach($agregado as $agr){
+                            array_push($agregados,$agr->nombre." $".$agr->precio);
+                        }
+                    @endphp
+                    <div class="form-row">
+                        <div class="col-1">
+                            <button id='minusS' type="button" onclick="destroyAE({{$nummesa}})" class='btn btn-secondary btn-sm'>-</button>
+                        </div>
+                        <div class="col-6">
+                            {{ Form::label('Agregado', 'Agregados:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Cant', 'Cant:') }}
+                        </div>
+                        <div class="col-2">
+                            {{ Form::label('Desc', 'Desc:') }}
+                        </div>
+                        <div class="col-1">
+                            <button id='masS' type="button" onclick="duplicateAE({{$nummesa}})" class='btn btn-secondary btn-sm'>+</button>
+                        </div>
+                    </div>
+                    <div class="form-row" id='rowAgregadoE{{$nummesa}}'>
+                        <div class="col-1"></div>
+                        <div class="col-6">
+                            {{ Form::select('agregadoE', $agregados ,null,['id'=>'agregadoE','class'=>'form-control form-control-sm']) }}
+                        </div>
+                        <div class="col-4">
+                            {{ Form::number('descAE', 0,array('id'=>'descAE','min'=>'0','max'=>'100','class'=>'form-control form-control-sm'))}}
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>    
+                <div class='form-row' id='observacion'>
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        {{ Form::label('Observaciones', 'Observaciones: ') }} 
+                        {{ Form::textarea('obs',null,array('id'=>'obs','class'=>'form-control','cols'=>45,'rows'=>5,'placeholder'=>'Ej: sin tomate'))}}
+                    </div>
+                    <div class="col-1"></div>
                 </div>
                 <hr>
                 <div class="form-row">
                     <div class="col-4"></div>
-                    <div class="col-auto">  
-                    {{ Form::submit('Añadir pedido', array('class' => 'btn btn-success')) }}
+                    <div class="col-4">  
+                        {{ Form::submit('Añadir pedido', array('class' => 'btn btn-success')) }}
                     </div>
                     <div class="col-4"></div>
                 </div>
                 {{ Form::close() }}
-                </div>               
-@php
-        echo "</form>";
-        echo "</div>\n";
+                </div> 
+            </form>              
+        </div>
+    @php
         echo "<input type='button' class='btn btn-warning btn-sm' value='Eliminar producto' onclick='hab_borrar($nummesa)'>";
         echo "</div>\n";
         echo "<div id='mesa-atendida$nummesa' class='modal-body'>\n";	
-        echo "<table class='table align-items-center'>";
-        echo "<tr>";
-        echo "<th>  </th>";
-        echo "<th> Cantidad </th>";
-        echo "<th> Producto </th>";
-        echo "<th> Precio individual </th>";
-        echo "<th> Precio pedido </th>";
-        echo "</tr>";
+        echo "<div class='container'>";
+        echo "<div class='form-row'>";
+        echo "<div class='col-1'></div>";
+        echo "<div class='col-1'>Cant.</div>";
+        echo "<div class='col-4'>Nombre</div>";
+        echo "<div class='col-2'>Precio U.</div>";
+        echo "<div class='col-2'>Precio T.</div>";
+        echo "<div class='col-2'></div>";
+        echo "</div>";
+        $i=1;
         $total_comida=0;
 		foreach($comida as $com){
 			if($com->numero_mesa == $nummesa) {
-                echo "<tr>";
-                echo "<td>";
+                echo "<div class='form-row' id='sandwich$i$nummesa'>";
+                echo "<div class='col-1'>";
                 echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar$i' name='quitar$i' value='X'>";
-                echo "</td>";
-                echo "<td>";
+                echo "</div>";
+                echo "<div class='col-1'>";
                 echo $com->cantidad;
-                echo "</td>";
-                echo "<td>";
+                echo "</div>";
+                echo "<div class='col-4'>";
                 echo $com->nombre;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$com->precio;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$com->precio*$com->cantidad;
-                echo "</td>";	
-                echo "</tr>\n";	
-                $total_comida = $total_comida + $com->precio*$com->cantidad;		
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".($com->precio*((100-$com->descuento)/100));
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".($com->precio*$com->cantidad*((100-$com->descuento)/100));
+                echo "</div>";
+                echo "<div class='col-2'> <input type='hidden' id='cantQ$i' name='cantQ$i' min=1 max=$com->cantidad value=1 class='form-control-sm' style='max-width: 100%;' value=1> </div>";	
+                echo "</div>\n";	
+                $total_comida = $total_comida + $com->precio*$com->cantidad*((100-$com->descuento)/100);
+                $i++;		
 			}
-		}
+        }
+
+        $i=1;
         $total_bebida=0;
         foreach($bebiditas as $bebi){
 			if($bebi->numero_mesa == $nummesa) {
-                echo "<tr>";
-                echo "<td>";
+                $bebid=array();
+                array_push($bebid,$bebi->nombre,$bebi->cantidad);
+                echo "<div class='form-row' id='bebida$i$nummesa'>";
+                echo "<div class='col-1'>";
                 echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar$i' name='quitar$i' value='X'>";
-                echo "</td>";
-                echo "<td>";
+                echo "</div>";
+                echo "<div class='col-1'>";
                 echo $bebi->cantidad;
-                echo "</td>";
-                echo "<td>";
+                echo "</div>";
+                echo "<div class='col-4'>";
                 echo $bebi->nombre;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$bebi->precio;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$bebi->precio*$bebi->cantidad;
-                echo "</td>";	
-                echo "</tr>\n";	
-                $total_bebida = $total_bebida + $bebi->precio*$bebi->cantidad;		
-			}
-		}
-        $total_pastel=0;
-        foreach($pastelitos as $past){
-			if($past->numero_mesa == $nummesa) {
-                echo "<tr>";
-                echo "<td>";
-                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
-                echo "</td>";
-                echo "<td>";
-                echo $past->cantidad;
-                echo "</td>";
-                echo "<td>";
-                echo $past->nombre;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$past->precio;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$past->precio*$past->cantidad;
-                echo "</td>";	
-                echo "</tr>\n";	
-                $total_pastel = $total_pastel + $past->precio*$past->cantidad;		
-			}
-		}
-        $total_cafe=0;
-        foreach($cafeteria as $cof){
-			if($cof->numero_mesa == $nummesa) {
-                echo "<tr>";
-                echo "<td>";
-                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
-                echo "</td>";
-                echo "<td>";
-                echo $cof->cantidad;
-                echo "</td>";
-                echo "<td>";
-                echo $cof->nombre;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$cof->precio;
-                echo "</td>";
-                echo "<td>";
-				echo "$".$cof->precio*$cof->cantidad;
-                echo "</td>";	
-                echo "</tr>\n";	
-                $total_cafe = $total_cafe + $cof->precio*$cof->cantidad;		
+                echo "</div>";
+                echo "<div class='col-2'>";
+                echo "$".($bebi->precio*((100-$bebi->descuento)/100));
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".($bebi->precio*$bebi->cantidad*((100-$bebi->descuento)/100));
+                echo "</div>";
+                echo "<div class='col-2'> <input type='hidden' min=1 max=$bebi->cantidad value=1  id='cantQ$i' name='cantQ$i' class='form-control-sm' style='max-width: 100%;'> </div>";	
+                echo "</div>\n";	
+                $total_bebida = $total_bebida + $bebi->precio*$bebi->cantidad*((100-$bebi->descuento)/100);	
+                $i++;	
 			}
         }
-        echo "<tr>";
-        echo "<th></th>";
-        echo "<th>Total:</th>";
-        echo "<th></th>";
-        echo "<th></th>";
-        echo "<th>";
+        
+        $total_pastel=0;
+        $i=1;
+        foreach($pastelitos as $past){
+			if($past->numero_mesa == $nummesa) {
+                echo "<div class='form-row' id='pastel$i$nummesa'>";
+                echo "<div class='col-1'>";
+                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
+                echo "</div>";
+                echo "<div class='col-1'>";
+                echo $past->cantidad;
+                echo "</div>";
+                echo "<div class='col-4'>";
+                echo $past->nombre;
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".($past->precio*((100-$past->descuento)/100));
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".($past->precio*$past->cantidad*((100-$past->descuento)/100));
+                echo "</div>";
+                echo "<div class='col-2'> <input type='hidden' id='cantQ$i' min=1 max=$past->cantidad value=1  name='cantQ$i' class='form-control-sm' style='max-width: 100%;'> </div>";	
+                echo "</div>";	
+                $total_pastel = $total_pastel + $past->precio*$past->cantidad*((100-$past->descuento)/100);		
+                $i++;
+            }
+        }
+        
+        $total_cafe=0;
+        $i=1;
+        foreach($cafeteria as $cof){
+			if($cof->numero_mesa == $nummesa) {
+                echo "<div class='form-row' id='cafe$i$nummesa'>";
+                echo "<div class='col-1'>";
+                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
+                echo "</div>";
+                echo "<div class='col-1'>";
+                echo $cof->cantidad;
+                echo "</div>";
+                echo "<div class='col-4'>";
+                echo $cof->nombre;
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$cof->precio*((100-$cof->descuento)/100);
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$cof->precio*$cof->cantidad*((100-$cof->descuento)/100);
+                echo "</div>";
+                echo "<div class='col-2'> <input type='hidden' id='cantQ$i' min=1 max=$cof->cantidad value=1  name='cantQ$i' class='form-control-sm' style='max-width: 100%;'> </div>";	
+                echo "</div>\n";	
+                $total_cafe = $total_cafe + $cof->precio*$cof->cantidad*((100-$cof->descuento)/100);
+                $i++;		
+			}
+        }
+
+        $total_agregado=0;
+        $i=1;
+        foreach($agregaditos as $agre){
+			if($agre->numero_mesa == $nummesa) {
+                echo "<div class='form-row' id='agregado$i$nummesa'>";
+                echo "<div class='col-1'>";
+                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
+                echo "</div>";
+                echo "<div class='col-1'>";
+                echo "1";
+                echo "</div>";
+                echo "<div class='col-4'>";
+                echo $agre->nombre;
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "";
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$agre->precio*((100-$agre->descuento)/100);
+                echo "</div>";
+                echo "<div class='col-2'> <input type='hidden' id='cantQ$i' min=1 max=1 value=1  name='cantQ$i' class='form-control-sm' style='max-width: 100%;'> </div>";	
+                echo "</div>\n";	
+                $total_agregado = $total_agregado + $agre->precio*((100-$agre->descuento)/100);	
+                $i++;	
+			}
+        }
+        $total_postre=0;
+        $i=1;
+        foreach($postresitos as $pos){
+			if($pos->numero_mesa == $nummesa) {
+                echo "<div class='form-row' id='postre$i$nummesa'>";
+                echo "<div class='col-1'>";
+                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
+                echo "</div>";
+                echo "<div class='col-1'>";
+                echo $pos->cantidad;
+                echo "</div>";
+                echo "<div class='col-4'>";
+                echo $pos->nombre;
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$pos->precio*((100-$pos->descuento)/100);
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$pos->precio*$pos->cantidad*((100-$pos->descuento)/100);
+                echo "</div>";
+                echo "<div class='col-2'> <input type='hidden' id='cantQ$i' min=1 max=$pos->cantidad value=1  name='cantQ$i' class='form-control-sm' style='max-width: 100%;'> </div>";	
+                echo "</div>\n";	
+                $total_postre = $total_postre + $pos->precio*$pos->cantidad*((100-$pos->descuento)/100);
+                $i++;		
+			}
+        }
+        $total_helado=0;
+        $i=1;
+        foreach($heladitos as $hel){
+			if($hel->numero_mesa == $nummesa) {
+                echo "<div class='form-row' id='helado$i$nummesa'>";
+                echo "<div class='col-1'>";
+                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
+                echo "</div>";
+                echo "<div class='col-1'>";
+                echo $hel->cantidad;
+                echo "</div>";
+                echo "<div class='col-4'>";
+                echo $hel->nombre;
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$hel->precio*((100-$hel->descuento)/100);
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$hel->precio*$hel->cantidad*((100-$hel->descuento)/100);
+                echo "</div>";	
+                echo "<div class='col-2'> <input type='hidden' id='cantQ$i' min=1 max=$hel->cantidad value=1  name='cantQ$i' class='form-control-sm' style='max-width: 100%;'> </div>";
+                echo "</div>\n";	
+                $total_helado = $total_helado + $hel->precio*$hel->cantidad*((100-$hel->descuento)/100);
+                $i++;		
+			}
+        }
+        $total_desayuno=0;
+        $i=1;
+        foreach($desayunitos as $des){
+			if($des->numero_mesa == $nummesa) {
+                echo "<div class='form-row' id='desayuno$i$nummesa'>";
+                echo "<div class='col-1'>";
+                echo "<input type='hidden' class='btn btn-danger btn-sm' id='quitar' name='quitar' value='X'>";
+                echo "</div>";
+                echo "<div class='col-1'>";
+                echo $des->cantidad;
+                echo "</div>";
+                echo "<div class='col-4'>";
+                echo $des->nombre;
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$des->precio*((100-$des->descuento)/100);
+                echo "</div>";
+                echo "<div class='col-2'>";
+				echo "$".$des->precio*$des->cantidad*((100-$des->descuento)/100);
+                echo "</div>";	
+                echo "<div class='col-2'> <input type='hidden' id='cantQ$i' min=1 max=$des->cantidad value=1  class='form-control-sm' style='max-width: 100%;' name='cantQ$i'> </div>";
+                echo "</div>\n";	
+                $total_desayuno = $total_desayuno + $des->precio*$des->cantidad*((100-$des->descuento)/100);
+                $i++;		
+			}
+        }
+        echo "<div class='form-row'>";
+        echo "<div class='col-1'></div>";
+        echo "<div class='col-1'>% Desc:</div>";
+        echo "<div class='col-4'></div>";
+        echo "<div class='col-2'></div>";
+        echo "<div class='col-2'>";
+        echo "<input id='descuento$nummesa' class='form-control-sm' type='number' value=0 min=0 style='max-width: 100%;' max=100>";
+        echo "</div>";
+        echo "<div class='col-2'></div>";
+        echo "</div>";
+        echo "<div class='form-row'>";
+        echo "<div class='col-1'></div>";
+        echo "<div class='col-1'>Total:</div>";
+        echo "<div class='col-4'></div>";
+        echo "<div class='col-2'></div>";
+        echo "<div class='col-2'>";
         echo "<input id='total' class='total_mesa' type=text disabled value='";
-        echo "$".($total_bebida + $total_cafe + $total_comida + $total_pastel);
+        echo "$".($total_bebida + $total_cafe + $total_comida + $total_pastel + $total_desayuno + $total_helado + $total_postre + $total_agregado);
         echo "'>";
-        echo "</th>";
-        echo "</tr>";
-        echo "</table>";
-        echo "<input class='btn btn-success' type='submit' value='Visualizar' onclick='ver($nummesa)'></input>";
-        echo "<form method='get' action='caja/$nummesa' onsubmit='alerta_pago()'>";
-        echo "<input class='btn btn-primary' type='submit' value='Cerrar mesa'></input>";
+        echo "</div>";
+        echo "<div class='col-2'></div>";
+        echo "</div>";
+        echo "<div class='form-row'>";
+        echo "<div class='col-4'>";
+        echo "<form id='formel$nummesa' method='get' action='' onsubmit='borrar_producto($nummesa)' >";
+        echo "<input id='eliminarE$nummesa' class='btn btn-danger form-control-sm' type='hidden' value='Eliminar producto'>";
         echo "</form>";
-        echo "</div>\n";
-		echo "</div>\n";
-		echo "</div>\n";
-        echo "</div>\n";
+        echo "</div>";
+        echo "<div class='col-4'></div>";
+        echo "<div class='col-4'>";
+        echo "<input id='imprimir' class='btn btn-primary form-control-sm' type='button' value='Imprimir comanda' onclick='ver($nummesa)'>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "<div class='form-row'>";
+        echo "<div class='col-4'></div>";
+        echo "<div class='col-4'>";
+        echo "<form method='get' action='caja/$nummesa' onsubmit='alerta_pago()'>";
+        echo "<input id='cerrar_mesa' class='btn btn-success form-control-sm' type='submit' value='Cerrar mesa' onclick=''>";
+        echo "</form>";
+        echo "</div>";
+        echo "<div class='col-4'></div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        
     }
 @endphp
 @endsection
