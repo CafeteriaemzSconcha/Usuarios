@@ -88,7 +88,7 @@ class CajaController extends Controller
         if ($desc !=0) {
             DB::table('descuentos')->insert(['descuento'=>$desc,'id_mesa'=>$clave]);
         }
-
+        $nummesa=$num;
         $comida = DB::table('plato_mesa')->join('plato','plato.id','=','plato_mesa.id_plato')->join('mesa','mesa.id','=','plato_mesa.id_mesa')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
         $bebiditas = DB::table('mesa')->join('bebida_mesa','bebida_mesa.id_mesa','=','mesa.id')->join('bebida','bebida.id','=','bebida_mesa.id_bebida')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
         $pastelitos = DB::table('mesa')->join('pasteles_mesa','pasteles_mesa.id_mesa','=','mesa.id')->join('pasteles','pasteles.id','=','pasteles_mesa.id_pastel')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
@@ -97,7 +97,7 @@ class CajaController extends Controller
         $heladitos = DB::table('mesa')->join('helado_mesa','helado_mesa.id_mesa','=','mesa.id')->join('helados','helados.id','=','helado_mesa.id_helado')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
         $postresitos = DB::table('mesa')->join('postre_mesa','postre_mesa.id_mesa','=','mesa.id')->join('postres','postres.id','=','postre_mesa.id_postre')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
         $agregaditos = DB::table('mesa')->join('agregado_mesa','agregado_mesa.id_mesa','=','mesa.id')->join('agregados','agregados.id','=','agregado_mesa.id_agregado')->join("estado_mesa","estado_mesa.id_mesa","=","mesa.id")->where([['estado_mesa.estado','Abierto'],['mesa.numero_mesa',$num]])->get();
-        return view('imprimirComandaCaja',compact('cafeteria','pastelitos','bebiditas','comida','desayunitos','heladitos','postresitos','agregaditos','desc','num'));
+        return view('imprimirCaja',compact('cafeteria','pastelitos','bebiditas','comida','desayunitos','heladitos','postresitos','agregaditos','desc','nummesa'));
     }
 
     public function destroy($id){

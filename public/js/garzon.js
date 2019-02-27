@@ -596,5 +596,6 @@ function ver(num){
     if(desc==""){
         desc=0;
     }
+    //window.open("imprimir/"+num+"/"+desc,"imprimir", opciones);*/
     window.open("imprimir/"+num+"/"+desc,"imprimir", opciones);
 }
